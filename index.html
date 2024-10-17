@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Website</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #9baab7;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            background-color: #6e8aa9;
+            padding: 15px;
+        }
+
+        nav {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a, .navigationbar a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav ul li a::after, .navigationbar a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background: rgb(249, 238, 240);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        nav ul li a:hover::after, .navigationbar a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .navigationbar {
+            margin-left: auto;
+            font-size: 20px;
+        }
+
+        .navigationbar a {
+            margin-left: 15px;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #banner {
+            background-size: cover;
+            background-image: url('https://i.pinimg.com/736x/ba/0f/ec/ba0fec1a20766753bed7b25d13322d58.jpg');
+            min-height: 500px;
+            margin: 0;
+            border-bottom: 5px solid rgb(106, 112, 126);
+        }
+
+        #banner h1 {
+            margin-top: 0;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px gray;
+            font-family: 'Sofia', sans-serif;
+            font-size: 5em;
+            padding-top: 80px;
+        }
+
+        .subtext {
+            color: white;
+            text-shadow: 1px 1px gray;
+            font-size: 25px;
+        }
+
+        #slay {
+            margin: 30px auto;
+            width: 70%;
+        }
+
+        #slay h2 {
+            line-height: 1.8em;
+            color: #333;
+            font-size: 2em;
+        }
+
+        #clothing-categories {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #clothing-categories button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #6e8aa9;
+            color: white;
+            font-size: 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .clothing-category {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .clothing-category:target {
+            display: flex; 
+        }
+
+
+        .clothing-category.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        #clothing {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .best-seller {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgb(187, 70, 70);
+            color: white;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            z-index: 1;
+        }
+        .limited {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgb(52, 59, 51);
+            color: white;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .card {
+            position: relative;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 15px;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .card h3 {
+            margin: 10px 0 5px;
+            font-size: 1.2em;
+        }
+
+        .card p {
+            color: #5d595a;
+            font-weight: bold;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        #shojo {
+            size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Bloom</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact us</a></li>
+            </ul>
+        </nav>
+        <div class="navigationbar">
+            <a href="#">Login</a>
+            <a href="#">Register</a>
+        </div>
+    </header>
+    <main>
+        <div id="banner" data-aos="zoom-in">
+            <h1 class="header">Welcome to Bloom!</h1>
+            <h3 class="subtext">Looking for elegant & casual wear? You're in the right shop!</h3>
+        </div>
+        <hr>
+        <div id="slay">
+            <h2>Where you will find ouji & shoujo inspired clothing. FREE SHIPPING FOR ORDERS OVER PHP 1,500.
+                <strong>Note that Ouji outfits will be pricey.</strong>
+            </h2>
+        </div>
+        <hr>
+        <div id="clothing-categories">
+            <button onclick="showCategory('ouji')" href="#ouji">Ouji ⟡</button>
+            <button onclick="showCategory('shoujo')" id="shojo" href="#shoujo" >Shoujo ᐢ..ᐢ</button>
+        </div>
+        <hr>
+        <div id="ouji" class="clothing-category">
+            <div class="card" data-aos="fade-down">
+                <div class="best-seller">Best Seller</div>
+                <img src="https://i.pinimg.com/enabled_hi/564x/7e/d2/08/7ed208cfb7e6aa84f10a45005b379f81.jpg">
+                <h3>Midnight Aristocrat . .</h3>
+                <p>price: Php 3,700</p>
+                <p>stock: 500</p>
+                <p>Rating: 5/5</p>
+                </div>
+           <div class="card" data-aos="fade-down">
+                <img src="https://i.pinimg.com/564x/5f/f5/9e/5ff59e271f18898a32e195272f7972f7.jpg">
+                <h3>Violet Royalty Set . .</h3>
+                <p>price: Php 5,500</p>
+                <p>stock: 480</p>
+                <p>Rating: 5/5</p>
+           </div>
+                <div class="card" data-aos="fade-down">
+                <img src="https://i.pinimg.com/564x/ee/9a/37/ee9a3708c9c2f0fefe86122c4268ce36.jpg">
+                <h3>Verdant Emerald . .</h3>
+                <p>price: Php 4,000</p>
+                <p>stock: 200</p>
+                <p>Rating: 4.9/5</p>
+                </div>
+                <div class="card" data-aos="fade-down">
+                    <img src="https://i.pinimg.com/enabled_hi/564x/9f/2d/14/9f2d14838cb64797fcbf2fb7da42e0e2.jpg">
+                    <h3>1.0 Rabbit on the Loose . .</h3>
+                    <p>price: Php 4,000</p>
+                    <p>stock: 100</p>
+                    <p>Rating: 4.8/5</p>
+                    </div>
+                <div class="card" data-aos="fade-down">
+                    <img src="https://i.pinimg.com/736x/5f/1a/95/5f1a95d79ac62140c2785165a0a7c666.jpg">
+                    <h3>2.0 Rabbit on the Loose . .</h3>
+                    <p>price: Php 4,760</p>
+                    <p>stock: 260</p>
+                    <p>Rating: 4.7/5</p>
+                    </div>   
+                    <div class="card" data-aos="fade-down">
+                        <div class="best-seller">Best Seller</div>
+                        <img src="https://i.pinimg.com/564x/b4/ed/e2/b4ede2298dfdde36487517e8a839d3c2.jpg">
+                        <h3>FEM Midnight Aristocrat . .</h3>
+                        <p>price: Php 4,500</p>
+                        <p>stock: 700</p>
+                        <p>Rating: 4.9/5</p>
+                    </div>   
+                    <div class="card" data-aos="fade-down">
+                        <div class="best-seller">Best Seller</div>
+                        <img src="https://i.pinimg.com/736x/3b/a0/75/3ba075592a99ad0869895b572b276373.jpg">
+                        <h3>Charming Daylight . .</h3>
+                        <p>price: Php 6,500</p>
+                        <p>stock: 670</p>
+                        <p>Rating: 4.8/5</p>
+                    </div>  
+                    <div class="card" data-aos="fade-down">
+                        <div class="best-seller">Best Seller</div>
+                        <img src="https://statics.devilinspired.com/image/cache/2024/0521/0/98a32804-28fb-aae6-0718-55feb3bb3f98-750x1000.jpg.webp">
+                        <h3>FEM Charming Daylight . .</h3>
+                        <p>price: Php 7,000</p>
+                        <p>stock: 200</p>
+                        <p>Rating: 5/5</p>
+                    </div>   
+                    <div class="card" data-aos="fade-down">
+                        <div class="limited">LIMITED TIME!</div>
+                        <img src="https://i.pinimg.com/736x/d0/d7/68/d0d7681f418e1109a544f1824afd94fa.jpg">
+                        <h3>An Elegant Train Conductor . .</h3>
+                        <p>price: Php 5,000</p>
+                        <p>stock: 367</p>
+                        <p>Rating: 5/5</p>
+                    </div> 
+        </div>
+        <div id="shoujo" class="clothing-category">
+            <div class="card" data-aos="fade-down">
+                <div class="best-seller">Best Seller</div>
+                <img src="https://i.pinimg.com/736x/00/9b/54/009b541bfaeb73d784a0de7d97e8b940.jpg" alt="Winter Madness">
+                <h3>Winter Fit . . </h3>
+                <p>price: Php 1,700</p>
+                <p>stock: 190</p>
+                <p>Rating: 5/5</p>
+            </div>
+            <div class="card" data-aos="fade-down">
+                <img src="https://i.pinimg.com/564x/a7/56/56/a756565fcb01d2901acc897d40a4cd18.jpg" alt="Cinnamon">
+                <h3>Cinnamon . . </h3>
+                <p>price: Php 1,000</p>
+                <p>stock: 80</p>
+                <p>Rating: 4.6/5</p>
+            </div>
+            <div class="card" data-aos="fade-down">
+                <img src="https://i.pinimg.com/736x/cb/d7/c9/cbd7c9474d5c615ac960c6d1643a3d08.jpg" alt="Hachi">
+                <h3>Hachi . . </h3>
+                <p>price: Php 900</p>
+                <p>stock: 170</p>
+                <p>Rating: 4.7/5</p>
+            </div>
+            <div class="card" data-aos="fade-down">
+                <div class="best-seller">Best Seller</div>
+                <img src="https://i.pinimg.com/564x/72/bc/13/72bc135b9776a28a94b2e8dec9fbb686.jpg" alt="Sakura">
+                <h3>Sakura . .</h3>
+                <p>price: Php 1,600</p>
+                <p>stock: 89</p>
+                <p>Rating: 4.8/5</p>
+            </div>
+            <div class="card"data-aos="fade-down">
+                <img src="https://i.pinimg.com/736x/c9/ed/50/c9ed50437c1befccb2a304ebfc5bc158.jpg" alt="Nana">
+                <h3>Nana . .</h3>
+                <p>price: Php 1,200</p>
+                <p>stock: 100</p>
+                <p>Rating: 4.9/5</p>
+            </div>
+            <div class="card" data-aos="fade-down">
+                <img src="https://i.pinimg.com/736x/68/24/5b/68245b0f0b6a887a0bf544575986d831.jpg" alt="Illuminate">
+                <h3>Illuminate . .</h3>
+                <p>price: Php 1,500</p>
+                <p>stock: 167</p>
+                <p>Rating: 4.4/5</p>
+            </div>
+            <div class="card" data-aos="fade-down">
+                <img src="https://i.pinimg.com/736x/13/4b/c6/134bc633cf0bd4ad93ee58d5f8b5c1cb.jpg" alt="Sky">
+                <h3>Wonders of the Sky . .</h3>
+                <p>price: Php 2,000</p>
+                <p>stock: 200</p>
+                <p>Rating: 4.4/5</p>
+            </div>
+            
+        </div>
+    </main>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+   
+    <script>
+        AOS.init({
+            duration: 2000,
+            once: false,
+        });
+        function showCategory(category) {
+        const categories = document.querySelectorAll('.clothing-category');
+        categories.forEach((div) => {
+        if (div.id !== category) {
+            div.classList.remove('active');
+            setTimeout(() => {
+                div.style.display = 'none';
+            }, 500);
+        }
+    });
+    const selectedCategory = document.getElementById(category);
+    setTimeout(() => {
+        selectedCategory.style.display = 'flex';
+        setTimeout(() => {
+            selectedCategory.classList.add('active');
+            AOS.refresh(); 
+        }, 10);
+    }, 500);
+};
+</script>
+</body>
+</html>
